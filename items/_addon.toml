@@ -1,6 +1,10 @@
 filter_name = "Holiday Items"
 filter_description = "Items associated with in-game events and holidays."
 filter_author = "Zeronacer"
+prefixes = [
+    "HI",
+    "HI-",
+]
 
 [replacers]
 ADDON_COLOR = 0xff00000
