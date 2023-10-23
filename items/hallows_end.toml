@@ -1,0 +1,126 @@
+category_name = "Hallow's End"
+category_color = 0xF48905
+category_description = { _ = "Prepare yourselves, the bells have tolled! Shelter your weak, your young and your old! Each of you shall pay the final sum. Cry for mercy, the reckoning has come!" }
+mergeable = true
+merged_by_default = false
+
+[hallowsend_general]
+name = "General - Hallow's End"
+description = { _ = "General and common items from Hallow's End." }
+color = 0xF48905
+items = [
+    33226,
+    37586,
+    149574,
+    54516,
+    117392,
+    37585,
+    37582,
+    37584,
+    37583,
+    37604,
+    20557,
+    128658,
+]
+
+[hallowsend_wands]
+name = "Wands - Hallow's End"
+description = { _ = "" }
+color = 0xF48905
+items = [
+    20397,
+    20398,
+    20399,
+    20409,
+    20410,
+    20411,
+    20413,
+    20414,
+    116854,
+    116853,
+    116851,
+    116848,
+    116850,
+    129644,
+    128645,
+    128646,
+    139004,
+]
+
+[hallowsend_masks]
+name = "Masks - Hallow's End"
+description = { _ = "" }
+color = 0xF48905
+items = [
+    20391,
+    33226,
+    20392,
+    20561,
+    20562,
+    20563,
+    20564,
+    20565,
+    20566,
+    20567,
+    20568,
+    20569,
+    20570,
+    20571,
+    20572,
+    20573,
+    20574,
+    34000,
+    34001,
+    34002,
+    34003,
+    49210,
+    49212,
+    49215,
+    49216,
+    69187,
+    69188,
+    69189,
+    69190,
+    69192,
+    69193,
+    69194,
+    69195,
+]
+
+[hallowsend_rewards]
+name = "Rewards - Hallow's End"
+description = { _ = "" }
+color = 0xF48905
+items = [
+    208680,
+    143903,
+    143904,
+    143901,
+    143902,
+    117356,
+    117355,
+    37012,
+    37011,
+    211271,
+    33154,
+    33292,
+    208725,
+    151271,
+    151270,
+    70722,
+    163045,
+    151269,
+    70908,
+    116801,
+    116804,
+    151268,
+    116828,
+    128643,
+    138990,
+    139133,
+    139134,
+    139135,
+    139136,
+    71076,
+    128794,
+]
