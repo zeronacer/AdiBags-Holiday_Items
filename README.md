@@ -2,6 +2,11 @@
     <img width="300" src="assets/crest.png">
 </p>
 
+<p align="center">
+    <img src="https://badgen.net/github/release/zeronacer/AdiBags-Holiday_Items">
+    <img src="https://badgen.net/github/last-commit/zeronacer/AdiBags-Holiday_Items">
+</p>
+
 <h1 align="center">
     AdiBags - Holiday Items
 </h1>
