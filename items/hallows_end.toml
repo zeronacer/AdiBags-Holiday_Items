@@ -26,7 +26,7 @@ items = [
 
 [hallowsend_wands]
 name = "Wands - Hallow's End"
-description = { _ = "" }
+description = { _ = "Wands to apply disguises. You can use them all year long!" }
 color = 0xF48905
 items = [
     20397,
@@ -50,7 +50,7 @@ items = [
 
 [hallowsend_masks]
 name = "Masks - Hallow's End"
-description = { _ = "" }
+description = { _ = "Masks to disguise yourself as another race. Some even grant stat bonuses!" }
 color = 0xF48905
 items = [
     20391,
@@ -89,7 +89,7 @@ items = [
 
 [hallowsend_rewards]
 name = "Rewards - Hallow's End"
-description = { _ = "" }
+description = { _ = "Rewards you get from defeating The Headless Horseman, opening crates, buying from vendors or doing quests associated with the event." }
 color = 0xF48905
 items = [
     208680,
