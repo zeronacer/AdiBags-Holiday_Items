@@ -1,0 +1,8 @@
+filter_name = "Holiday Items"
+filter_description = "Items associated with in-game events and holidays."
+filter_author = "Zeronacer"
+
+[replacers]
+ADDON_COLOR = 0xff00000
+TOC_VERSION = "100002"
+CURSE_ID = "926738"

@@ -1,0 +1,8 @@
+category_name = "Hallow's End"
+category_color = 0xF48905
+category_description = { _ = "Prepare yourselves, the bells have tolled! Shelter your weak, your young and your old! Each of you shall pay the final sum. Cry for mercy, the reckoning has come!" }
+mergeable = true
+merged_by_default = false
+items = [
+    33226
+]
