@@ -1,0 +1,13 @@
+category_name = "Holidays"
+category_color = 0xFF00000
+category_description = { _ = "Items relating to various in-game holidays."}
+mergeable = true
+merged_by_default = false
+
+[hallowsend]
+name = "Hallow's End"
+category_description = { _ = "Prepare yourselves, the bells have tolled! Shelter your weak, your young and your old! Each of you shall pay the final sum. Cry for mercy, the reckoning has come!" }
+color = 0xF48905
+items = [
+    33226,
+]
