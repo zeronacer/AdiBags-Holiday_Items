@@ -11,35 +11,30 @@ on:
     tags:
       - "**"
 
-# a workflow is built up as jobs, and within these jobs are steps
 jobs:
-  # "release" is a job, you can name it anything you want
-  release:
-    # we can run our steps on pretty much anything, but the "ubuntu-latest" image is a safe bet
+  prepare:
     runs-on: ubuntu-latest
-
-    # specify the environment variables used by the packager, matching the secrets from the project on GitHub
     env:
       CF_API_KEY: ${{ secrets.CF_API_KEY }}
       GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }} # "GITHUB_TOKEN" is a secret always provided to the workflow
 
-    # "steps" holds a list of all the steps needed to package and release our AddOn
     steps:
       # we first have to clone the AddOn project, this is a required step
-      - name: 👱👱Clone project
+      - name: 👱 Clone project
         uses: actions/checkout@v3
         with:
           fetch-depth: 0 # gets entire git history, needed for automatic changelogs
           path: ./variant
 
-      - name: 🎭Get Zottelchen/adibags-creator-action
+      - name: 🎭 Get Zottelchen/adibags-creator-action
         uses: actions/checkout@v3
         with:
           repository: Zottelchen/adibags-creator-action
           ref: refs/heads/v2
           persist-credentials: false
           path: ./action
-      - name: 🏹Merge
+
+      - name: 🏹 Merge
         run: |
           cp -r ./variant/* ./action
           mkdir ./dist
@@ -48,20 +43,61 @@ jobs:
           cp -r ./variant/.git .
           rm -rf ./action ./variant
           ls -la .
-      - name: 📷Build AdiBags Extension
+
+      - name: 🗄️ Store artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pre-build
+          path: ./
+
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }} # "GITHUB_TOKEN" is a secret always provided to the workflow
+
+    steps:
+      - name: 🗄️ Retrieve artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pre-build
+          path: ./
+
+      - name: 📷 Build AdiBags Extension
         uses: ./
         env:
           PYTHONUNBUFFERED: 1
           BLIZZARD_API_ID: ${{ secrets.BLIZZ_ID }}
           BLIZZARD_API_SECRET: ${{ secrets.BLIZZ_SECRET }}
-      - name: 😎Stylua
+
+      - name: 😎 Stylua
         uses: JohnnyMorganz/stylua-action@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest # NOTE: we recommend pinning to a specific version in case of formatting changes
           # CLI arguments
           args: --verify --indent-type spaces --indent-width 2 --line-endings Windows --quote-style AutoPreferDouble out/AdiBags_HolidayItems.lua out/Localization.lua
-      - name: ✅Luacheck Main Addon
+
+      - name: 🗄️ Store artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pre-lint
+          path: ./
+
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }} # "GITHUB_TOKEN" is a secret always provided to the workflow
+
+    steps:
+      - name: 🗄️ Retrieve artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pre-lint
+          path: ./
+
+      - name: ✅ Luacheck Main Addon
         uses: lunarmodules/luacheck@v0
         with:
           args: out/AdiBags_HolidayItems.lua --ignore 113 211 212 611 614 631
@@ -72,14 +108,34 @@ jobs:
           # 611: A line consists of nothing but whitespace. - Oh no! Oh wait, not important.
           # 614: Trailing whitespace in a comment. - These reports are just plain wrong.
           # 631: Line is too long. - Not important.
-      - name: ☑️Luacheck Localization
+
+      - name: ☑️ Luacheck Localization
         uses: lunarmodules/luacheck@v0
         with:
           args: out/Localization.lua --ignore 113 211 212 542 611 614 631
           # additionally ignored:
           # 542: empty if branch - This is expected, since Bigwigs will replace the empty branch AFTER this check runs.
 
-      - name: 📝Copy Output
+      - name: 🗄️ Store artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: pre-release
+          path: ./
+
+  release:
+    runs-on: ubuntu-latest
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }} # "GITHUB_TOKEN" is a secret always provided to the workflow
+
+    steps:
+      - name: 🗄️ Retrieve artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pre-release
+          path: ./
+
+      - name: 📝 Copy Output
         run: |
           cp -r ./out/* ./dist
           cp -r ./out/.git ./dist
@@ -88,7 +144,7 @@ jobs:
           git add *
 
       # once cloned, we just run the GitHub Action for the packager project
-      - name: 📦Package and release
+      - name: 📦 Package and release
         uses: BigWigsMods/packager@v2
         with:
           args: -t dist
