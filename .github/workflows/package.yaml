@@ -64,6 +64,9 @@ jobs:
           name: pre-build
           path: ./
 
+      - name: 🔐 Adjust permissions
+        run: chmod +x ./entrypoint.sh
+
       - name: 📷 Build AdiBags Extension
         uses: ./
         env:
